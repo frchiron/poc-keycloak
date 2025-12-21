@@ -23,6 +23,9 @@ class ApiAdapter implements IApiPort {
     });
 
     if (!response.ok) {
+      if (response.status === 403) {
+        throw new Error(`403: Access Denied - You don't have permission to access this application`);
+      }
       throw new Error(`API request failed: ${response.statusText}`);
     }
 
