@@ -8,6 +8,7 @@ export const useAppData = (token: string | undefined) => {
   const [appInfo, setAppInfo] = useState<AppInfo | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [accessDenied, setAccessDenied] = useState(false);
 
   useEffect(() => {
     if (!token) {
@@ -23,15 +24,20 @@ export const useAppData = (token: string | undefined) => {
         setUser(userData);
         setAppInfo(appInfoData);
         setError(null);
+        setAccessDenied(false);
       })
       .catch((err) => {
         console.error('Failed to fetch app data:', err);
-        setError(err.message);
+        if (err.message.includes('403')) {
+          setAccessDenied(true);
+        } else {
+          setError(err.message);
+        }
       })
       .finally(() => {
         setLoading(false);
       });
   }, [token]);
 
-  return { user, appInfo, loading, error };
+  return { user, appInfo, loading, error, accessDenied };
 };

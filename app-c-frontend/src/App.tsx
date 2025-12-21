@@ -3,10 +3,11 @@ import { useAuth } from './useCases/useAuth';
 import { useAppData } from './useCases/useAppData';
 import { Dashboard } from './ui/pages/Dashboard';
 import { LoginPage } from './ui/pages/LoginPage';
+import { AccessDenied } from './ui/pages/AccessDenied';
 
 const App: React.FC = () => {
-  const { isAuthenticated, isLoading, login, logout, getToken } = useAuth();
-  const { user, appInfo, loading: dataLoading } = useAppData(getToken());
+  const { isAuthenticated, isLoading, login, logout, getToken, getUsername } = useAuth();
+  const { user, appInfo, loading: dataLoading, accessDenied } = useAppData(getToken());
 
   if (isLoading || dataLoading) {
     return (
@@ -19,6 +20,10 @@ const App: React.FC = () => {
 
   if (!isAuthenticated) {
     return <LoginPage onLogin={login} />;
+  }
+
+  if (accessDenied) {
+    return <AccessDenied username={getUsername()} onLogout={logout} />;
   }
 
   if (!user || !appInfo) {

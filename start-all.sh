@@ -32,8 +32,18 @@ else
 fi
 echo ""
 
+# Setup RBAC (roles and users)
+echo "3. Setting up RBAC (roles and users)..."
+if [ -f "setup-rbac.sh" ]; then
+  chmod +x setup-rbac.sh
+  ./setup-rbac.sh
+else
+  echo "   Warning: setup-rbac.sh not found. RBAC setup skipped."
+fi
+echo ""
+
 # Start backends
-echo "3. Starting Spring Boot backends..."
+echo "4. Starting Spring Boot backends..."
 echo "   Note: This will take a few minutes..."
 
 cd app-a-backend
@@ -59,7 +69,7 @@ echo "   Check logs in the 'logs' directory for details"
 echo ""
 
 # Start frontends
-echo "4. Starting React frontends..."
+echo "5. Starting React frontends..."
 
 cd app-a-frontend
 if [ ! -d "node_modules" ]; then
@@ -100,8 +110,8 @@ echo "  - Application B:   http://localhost:3002"
 echo "  - Application C:   http://localhost:3003"
 echo ""
 echo "Test Credentials:"
-echo "  - Username: testuser"
-echo "  - Password: password"
+echo "  - testuser/password (Full access to all apps)"
+echo "  - bob/bob123       (Access to App A only)"
 echo ""
 echo "Logs are available in the 'logs' directory"
 echo ""
