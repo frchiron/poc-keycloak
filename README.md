@@ -2,11 +2,6 @@
 
 This proof of concept demonstrates Single Sign-On (SSO) and Role-Based Access Control (RBAC) across three independent applications using Keycloak as the identity provider. Each application consists of a Spring Boot backend (Java 25, Hexagonal Architecture) and a React frontend.
 
-## TODO
-
-* Token should be validated on backend side with a security filter
-* list users in the readme
-* token should not appear in the url I suppose?
 
 
 ## Architecture Overview
