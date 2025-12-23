@@ -6,6 +6,7 @@ This proof of concept demonstrates Single Sign-On (SSO) and Role-Based Access Co
 
 * Token should be validated on backend side with a security filter
 * list users in the readme
+* token should not appear in the url I suppose?
 
 
 ## Architecture Overview
